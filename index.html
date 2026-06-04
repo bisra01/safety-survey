@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Safety Survey – Ashtonbee Campus</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --purple: #aa00ff;
+    --blue: #004586;
+    --green: #579d1c;
+    --red: #c0392b;
+    --navy: #1a1a2e;
+    --grey-dark: #444444;
+    --grey-mid: #555555;
+    --grey-light: #888888;
+    --bg: #f9f8f6;
+    --white: #ffffff;
+    --border: #e0ddd8;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--navy); min-height: 100vh; padding: 0 0 60px; }
+  .site-header { background: var(--navy); padding: 28px 40px; display: flex; align-items: center; gap: 16px; }
+  .site-header .college-name { color: #fff; font-weight: 600; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; }
+  .site-header .divider { width: 1px; height: 24px; background: rgba(255,255,255,0.25); }
+  .site-header .campus-tag { color: var(--purple); font-size: 13px; font-weight: 500; letter-spacing: 0.06em; }
+  .hero { background: var(--white); border-bottom: 3px solid var(--purple); padding: 48px 40px 40px; max-width: 780px; margin: 0 auto; }
+  .hero h1 { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--navy); line-height: 1.2; margin-bottom: 8px; }
+  .hero h1 span { color: var(--purple); }
+  .hero .subtitle { font-size: 13px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--grey-light); margin-bottom: 20px; }
+  .hero p { font-size: 15px; color: var(--grey-mid); line-height: 1.7; max-width: 620px; }
+  .progress-wrap { max-width: 780px; margin: 0 auto; padding: 20px 40px 0; }
+  .progress-label { font-size: 12px; color: var(--grey-light); margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
+  .step-counter { font-weight: 600; color: var(--purple); font-size: 13px; }
+  .progress-bar { height: 4px; background: var(--border); border-radius: 2px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--purple); border-radius: 2px; transition: width 0.4s ease; width: 0%; }
+  .form-wrap { max-width: 780px; margin: 0 auto; padding: 0 40px; }
+  .section-label { margin: 32px 0 8px; padding: 10px 16px; background: var(--navy); border-left: 4px solid var(--purple); display: flex; align-items: baseline; gap: 12px; border-radius: 0 4px 4px 0; }
+  .section-label h2 { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: #fff; }
+  .section-label .section-note { font-size: 11px; color: rgba(255,255,255,0.45); font-style: italic; }
+  .q-card { background: var(--white); border: 1px solid var(--border); border-radius: 6px; padding: 24px 28px; margin-bottom: 14px; }
+  .q-card.required-unanswered { border-color: var(--red); box-shadow: 0 0 0 2px rgba(192,57,43,0.12); }
+  .q-label { font-size: 15px; font-weight: 500; color: var(--navy); line-height: 1.5; margin-bottom: 16px; }
+  .q-label .q-num { color: var(--purple); font-weight: 600; margin-right: 4px; }
+  .text-input { width: 100%; border: 1px solid var(--border); border-radius: 4px; padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--navy); background: var(--bg); transition: border-color 0.2s; outline: none; }
+  .text-input:focus { border-color: var(--purple); background: #fff; }
+  textarea.text-input { resize: vertical; min-height: 90px; }
+  .options-list { display: flex; flex-direction: column; gap: 8px; }
+  .option-item { display: flex; align-items: center; gap: 12px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 4px; cursor: pointer; transition: border-color 0.15s, background 0.15s; user-select: none; }
+  .option-item:hover { border-color: var(--purple); background: #faf5ff; }
+  .option-item.selected { border-color: var(--purple); background: #f5eaff; }
+  .option-item input[type="radio"], .option-item input[type="checkbox"] { accent-color: var(--purple); width: 16px; height: 16px; flex-shrink: 0; }
+  .option-item label { font-size: 14px; color: var(--grey-dark); cursor: pointer; line-height: 1.4; }
+  .other-wrap { display: flex; align-items: center; gap: 10px; flex: 1; }
+  .other-input { flex: 1; border: none; border-bottom: 1px solid var(--border); padding: 2px 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--navy); background: transparent; outline: none; }
+  .other-input:focus { border-bottom-color: var(--purple); }
+  .likert-wrap { overflow-x: auto; margin-top: 4px; }
+  .likert-table { width: 100%; border-collapse: collapse; min-width: 420px; }
+  .likert-table th { font-size: 11px; font-weight: 600; color: var(--grey-light); text-transform: uppercase; letter-spacing: 0.06em; padding: 8px 10px; text-align: center; border-bottom: 1px solid var(--border); }
+  .likert-table td { text-align: center; padding: 12px 10px; }
+  .likert-table input[type="radio"] { accent-color: var(--purple); width: 18px; height: 18px; cursor: pointer; }
+  .likert-table tr:hover td { background: #faf5ff; }
+  .nav-area { max-width: 780px; margin: 0 auto; padding: 20px 40px 0; display: flex; align-items: center; gap: 12px; }
+  .btn-back { background: transparent; color: var(--grey-mid); border: 1px solid var(--border); border-radius: 4px; padding: 12px 28px; font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
+  .btn-back:hover { border-color: var(--purple); color: var(--purple); }
+  .btn-next { background: var(--purple); color: #fff; border: none; border-radius: 4px; padding: 12px 36px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; letter-spacing: 0.04em; transition: background 0.2s, transform 0.1s; }
+  .btn-next:hover { background: #8800cc; }
+  .btn-next:active { transform: scale(0.98); }
+  .nav-error { display: none; color: var(--red); font-size: 13px; margin-left: 8px; }
+  .submit-area { margin-top: 40px; padding: 32px 28px; background: var(--white); border: 1px solid var(--border); border-radius: 6px; border-top: 3px solid var(--purple); }
+  .submit-btn { background: var(--purple); color: #fff; border: none; border-radius: 4px; padding: 14px 40px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; letter-spacing: 0.04em; transition: background 0.2s, transform 0.1s; }
+  .submit-btn:hover { background: #8800cc; }
+  .submit-btn:active { transform: scale(0.98); }
+  .crisis-note { margin-top: 20px; padding: 16px; background: #fff8f8; border-left: 3px solid var(--red); border-radius: 0 4px 4px 0; font-size: 13px; color: var(--grey-mid); line-height: 1.6; }
+  .crisis-note strong { color: var(--red); }
+  #thank-you { display: none; max-width: 780px; margin: 60px auto; padding: 0 40px; text-align: center; }
+  #thank-you .ty-icon { font-size: 48px; margin-bottom: 20px; }
+  #thank-you h2 { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--navy); margin-bottom: 12px; }
+  #thank-you p { font-size: 15px; color: var(--grey-mid); line-height: 1.7; }
+  .error-msg { display: none; color: var(--red); font-size: 12px; margin-top: 6px; }
+  .required-unanswered .error-msg { display: block; }
+  .survey-step { display: none; }
+  .survey-step.active { display: block; }
+  @media (max-width: 600px) {
+    .site-header, .hero, .progress-wrap, .form-wrap, .nav-area { padding-left: 20px; padding-right: 20px; }
+    .hero h1 { font-size: 1.8rem; }
+    .q-card { padding: 18px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site-header">
+  <span class="college-name">Centennial College</span>
+  <div class="divider"></div>
+  <span class="campus-tag">Ashtonbee Campus</span>
+</div>
+
+<div id="survey-form">
+  <div class="hero">
+    <div class="subtitle">Student Survey · 2026</div>
+    <h1>Student Safety <span>Survey</span></h1>
+    <p>This survey is being conducted to understand student awareness of women's safety supports and resources available at Centennial College. Your honest responses will help inform Centennial College of the current state of affairs and perhaps be able to improve campus safety for everyone.<mark> Participation is entirely voluntary.</mark></p>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span id="step-counter" class="step-counter">About You</span>
+      <span id="progress-pct">0%</span>
+    </div>
+    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+  </div>
+
+  <div class="form-wrap">
+
+    <!-- STEP 1: About You -->
+    <div class="survey-step active" id="step-1">
+      <div class="section-label">
+        <h2>Section A — About You</h2>
+        <span class="section-note">Optional — responses are confidential</span>
+      </div>
+      <div class="q-card">
+        <div class="q-label">Name <span style="color:var(--grey-light);font-weight:400">(optional)</span></div>
+        <input type="text" class="text-input" id="a-name" placeholder="Your name">
+      </div>
+      <div class="q-card">
+        <div class="q-label">Program of Study <span style="color:var(--grey-light);font-weight:400">(optional)</span></div>
+        <input type="text" class="text-input" id="a-program" placeholder="e.g. Practical Nursing, Mechanical Technician">
+      </div>
+      <div class="q-card">
+        <div class="q-label">School / Faculty <span style="color:var(--grey-light);font-weight:400">(optional)</span></div>
+        <input type="text" class="text-input" id="a-school" placeholder="e.g. School of Health, School of Transportation">
+      </div>
+      <div class="q-card" id="q-duration">
+        <div class="q-label">How long have you been a student at Centennial?</div>
+        <div class="options-list">
+          <label class="option-item"><input type="radio" name="duration" value="Less than 1 semester"><label>Less than 1 semester</label></label>
+          <label class="option-item"><input type="radio" name="duration" value="1-2 semesters"><label>1–2 semesters</label></label>
+          <label class="option-item"><input type="radio" name="duration" value="3-4 semesters"><label>3–4 semesters</label></label>
+          <label class="option-item"><input type="radio" name="duration" value="More than 4 semesters"><label>More than 4 semesters</label></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Q1 -->
+    <div class="survey-step" id="step-2">
+      <div class="section-label"><h2>Section B — Your Sense of Safety on Campus</h2></div>
+      <div class="q-card" id="q1">
+        <div class="q-label"><span class="q-num">Q1.</span> How safe do you generally feel on campus?</div>
+        <div class="options-list">
+          <label class="option-item"><input type="radio" name="q1" value="Very safe"><label>Very safe</label></label>
+          <label class="option-item"><input type="radio" name="q1" value="Somewhat safe"><label>Somewhat safe</label></label>
+          <label class="option-item"><input type="radio" name="q1" value="Neutral"><label>Neutral</label></label>
+          <label class="option-item"><input type="radio" name="q1" value="Somewhat unsafe"><label>Somewhat unsafe</label></label>
+          <label class="option-item"><input type="radio" name="q1" value="Very unsafe"><label>Very unsafe</label></label>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Q2 -->
+    <div class="survey-step" id="step-3">
+      <div class="q-card" id="q2">
+        <div class="q-label"><span class="q-num">Q2.</span> Are there specific areas of campus where you feel less safe? <em style="color:var(--grey-light);font-size:13px">(Select all that apply)</em></div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q2" value="Parking lots"><label>Parking lots</label></label>
+          <label class="option-item"><input type="checkbox" name="q2" value="Campus pathways or walkways at night"><label>Campus pathways or walkways at night</label></label>
+          <label class="option-item"><input type="checkbox" name="q2" value="Campus buildings after hours"><label>Campus buildings after hours</label></label>
+          <label class="option-item"><input type="checkbox" name="q2" value="Transit stops near campus"><label>Transit stops near campus</label></label>
+          <label class="option-item"><input type="checkbox" name="q2" value="Washrooms or change rooms"><label>Washrooms or change rooms</label></label>
+          <label class="option-item"><input type="checkbox" name="q2" value="No, I feel safe throughout"><label>No, I feel safe throughout</label></label>
+          <label class="option-item"><input type="checkbox" name="q2-other-check" value="Other"><label>Other:</label>
+            <div class="other-wrap"><input type="text" class="other-input" id="q2-other" placeholder="Please specify"></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: Q3 -->
+    <div class="survey-step" id="step-4">
+      <div class="q-card" id="q3">
+        <div class="q-label"><span class="q-num">Q3.</span> Have you ever personally experienced or witnessed harassment or threatening behaviour on campus?</div>
+        <div class="options-list">
+          <label class="option-item"><input type="radio" name="q3" value="Yes, experienced it personally"><label>Yes, experienced it personally</label></label>
+          <label class="option-item"><input type="radio" name="q3" value="Yes, witnessed it happening to someone else"><label>Yes, witnessed it happening to someone else</label></label>
+          <label class="option-item"><input type="radio" name="q3" value="Both"><label>Both</label></label>
+          <label class="option-item"><input type="radio" name="q3" value="No"><label>No</label></label>
+          <label class="option-item"><input type="radio" name="q3" value="Prefer not to say"><label>Prefer not to say</label></label>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Q4 -->
+    <div class="survey-step" id="step-5">
+      <div class="q-card" id="q4">
+        <div class="q-label"><span class="q-num">Q4.</span> If you answered yes to Q3 — did you report it or seek help?</div>
+        <div class="options-list">
+          <label class="option-item"><input type="radio" name="q4" value="Yes, I reported it to campus security"><label>Yes, I reported it to campus security</label></label>
+          <label class="option-item"><input type="radio" name="q4" value="Yes, I sought help from a counsellor or support service"><label>Yes, I sought help from a counsellor or support service</label></label>
+          <label class="option-item"><input type="radio" name="q4" value="No, I did not know where to report"><label>No, I did not know where to report</label></label>
+          <label class="option-item"><input type="radio" name="q4" value="No, I did not feel it would be taken seriously"><label>No, I did not feel it would be taken seriously</label></label>
+          <label class="option-item" id="q4-other-item">
+            <input type="radio" name="q4" value="No, another reason">
+            <label>No, another reason:</label>
+            <div class="other-wrap"><input type="text" class="other-input" id="q4-other" placeholder="Please specify"></div>
+          </label>
+          <label class="option-item"><input type="radio" name="q4" value="N/A"><label>N/A</label></label>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 6: Q5 -->
+    <div class="survey-step" id="step-6">
+      <div class="section-label"><h2>Section C — Awareness of Safety Supports</h2></div>
+      <div class="q-card" id="q5">
+        <div class="q-label"><span class="q-num">Q5.</span> Before this survey, were you aware that Centennial College has a <strong>WalkSafe program</strong> (where a trained representative or security officer will walk with you to your car or bus stop)?</div>
+        <div class="options-list">
+          <label class="option-item"><input type="radio" name="q5" value="Yes, I was aware and have used it"><label>Yes, I was aware and have used it</label></label>
+          <label class="option-item"><input type="radio" name="q5" value="Yes, I was aware but have never used it"><label>Yes, I was aware but have never used it</label></label>
+          <label class="option-item"><input type="radio" name="q5" value="No, I was not aware of this"><label>No, I was not aware of this</label></label>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 7: Q6 -->
+    <div class="survey-step" id="step-7">
+      <div class="q-card" id="q6">
+        <div class="q-label"><span class="q-num">Q6.</span> Before this survey, were you aware of the <strong>Centennial Campus Safety Watch App</strong>?</div>
+        <div class="options-list">
+          <label class="option-item"><input type="radio" name="q6" value="Yes, I have it downloaded on my phone"><label>Yes, I have it downloaded on my phone</label></label>
+          <label class="option-item"><input type="radio" name="q6" value="Yes, I had heard of it but never downloaded it"><label>Yes, I had heard of it but never downloaded it</label></label>
+          <label class="option-item"><input type="radio" name="q6" value="No, I had no idea this app existed"><label>No, I had no idea this app existed</label></label>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 8: Q7 -->
+    <div class="survey-step" id="step-8">
+      <div class="q-card" id="q7">
+        <div class="q-label"><span class="q-num">Q7.</span> If you have the app — which of these features did you know about? <em style="color:var(--grey-light);font-size:13px">(Select all that apply)</em></div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q7" value="One-tap emergency contact button"><label>One-tap emergency contact button (security, police, crisis lines)</label></label>
+          <label class="option-item"><input type="checkbox" name="q7" value="Safety Toolbox"><label>Safety Toolbox (flashlight, loud alarm, send photo to security)</label></label>
+          <label class="option-item"><input type="checkbox" name="q7" value="Sexual Violence Resources tab"><label>Sexual Violence Resources tab</label></label>
+          <label class="option-item"><input type="checkbox" name="q7" value="WalkSafe request button inside the app"><label>WalkSafe request button inside the app</label></label>
+          <label class="option-item"><input type="checkbox" name="q7" value="Campus safety alerts / emergency notifications"><label>Campus safety alerts / emergency notifications</label></label>
+          <label class="option-item"><input type="checkbox" name="q7" value="Campus maps and floor plans"><label>Campus maps and floor plans</label></label>
+          <label class="option-item"><input type="checkbox" name="q7" value="I do not have the app"><label>I do not have the app</label></label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 9: Q8 -->
+    <div class="survey-step" id="step-9">
+      <div class="q-card" id="q8">
+        <div class="q-label"><span class="q-num">Q8.</span> How did you first hear about the Campus Safety Watch App? <em style="color:var(--grey-light);font-size:13px">(Select all that apply)</em></div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q8" value="Orientation or welcome week"><label>Orientation or welcome week</label></label>
+          <label class="option-item"><input type="checkbox" name="q8" value="A professor or staff member"><label>A professor or staff member</label></label>
+          <label class="option-item"><input type="checkbox" name="q8" value="A friend or fellow student"><label>A friend or fellow student</label></label>
+          <label class="option-item"><input type="checkbox" name="q8" value="Centennial website"><label>Centennial's website</label></label>
+          <label class="option-item"><input type="checkbox" name="q8" value="Social media"><label>Social media</label></label>
+          <label class="option-item"><input type="checkbox" name="q8" value="Campus signage or posters"><label>Campus signage or posters</label></label>
+          <label class="option-item"><input type="checkbox" name="q8" value="I have never heard of it"><label>I have never heard of it</label></label>
+          <label class="option-item">
+            <input type="checkbox" name="q8-other-check" value="Other">
+            <label>Other:</label>
+            <div class="other-wrap"><input type="text" class="other-input" id="q8-other" placeholder="Please specify"></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 10: Q9 -->
+    <div class="survey-step" id="step-10">
+      <div class="q-card" id="q9">
+        <div class="q-label"><span class="q-num">Q9.</span> Were you aware that Centennial has a dedicated <strong>Sexual Violence Support Specialist</strong> (counsellor) available to students?</div>
+        <div class="options-list">
+          <label class="option-item"><input type="radio" name="q9" value="Yes, and I know how to contact them"><label>Yes, and I know how to contact them</label></label>
+          <label class="option-item"><input type="radio" name="q9" value="Yes, but I do not know how to reach them"><label>Yes, but I do not know how to reach them</label></label>
+          <label class="option-item"><input type="radio" name="q9" value="No, I was not aware"><label>No, I was not aware</label></label>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 11: Q10 -->
+    <div class="survey-step" id="step-11">
+      <div class="section-label">
+        <h2>Section D — Your Views on Campus Safety Supports</h2>
+        <span class="section-note">Indicate how much you agree or disagree with each statement</span>
+      </div>
+      <div class="q-card" id="q10">
+        <div class="q-label"><span class="q-num">Q10.</span> I know what to do or who to contact if I felt unsafe on campus.</div>
+        <div class="likert-wrap">
+          <table class="likert-table">
+            <thead><tr><th>Strongly Disagree</th><th>Disagree</th><th>Neutral</th><th>Agree</th><th>Strongly Agree</th></tr></thead>
+            <tbody><tr>
+              <td><input type="radio" name="q10" value="Strongly Disagree"></td>
+              <td><input type="radio" name="q10" value="Disagree"></td>
+              <td><input type="radio" name="q10" value="Neutral"></td>
+              <td><input type="radio" name="q10" value="Agree"></td>
+              <td><input type="radio" name="q10" value="Strongly Agree"></td>
+            </tr></tbody>
+          </table>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 12: Q11 -->
+    <div class="survey-step" id="step-12">
+      <div class="q-card" id="q11">
+        <div class="q-label"><span class="q-num">Q11.</span> Centennial College does enough to make women feel safe on campus.</div>
+        <div class="likert-wrap">
+          <table class="likert-table">
+            <thead><tr><th>Strongly Disagree</th><th>Disagree</th><th>Neutral</th><th>Agree</th><th>Strongly Agree</th></tr></thead>
+            <tbody><tr>
+              <td><input type="radio" name="q11" value="Strongly Disagree"></td>
+              <td><input type="radio" name="q11" value="Disagree"></td>
+              <td><input type="radio" name="q11" value="Neutral"></td>
+              <td><input type="radio" name="q11" value="Agree"></td>
+              <td><input type="radio" name="q11" value="Strongly Agree"></td>
+            </tr></tbody>
+          </table>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 13: Q12 -->
+    <div class="survey-step" id="step-13">
+      <div class="q-card" id="q12">
+        <div class="q-label"><span class="q-num">Q12.</span> Safety resources at Centennial are easy to find and access.</div>
+        <div class="likert-wrap">
+          <table class="likert-table">
+            <thead><tr><th>Strongly Disagree</th><th>Disagree</th><th>Neutral</th><th>Agree</th><th>Strongly Agree</th></tr></thead>
+            <tbody><tr>
+              <td><input type="radio" name="q12" value="Strongly Disagree"></td>
+              <td><input type="radio" name="q12" value="Disagree"></td>
+              <td><input type="radio" name="q12" value="Neutral"></td>
+              <td><input type="radio" name="q12" value="Agree"></td>
+              <td><input type="radio" name="q12" value="Strongly Agree"></td>
+            </tr></tbody>
+          </table>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 14: Q13 -->
+    <div class="survey-step" id="step-14">
+      <div class="q-card" id="q13">
+        <div class="q-label"><span class="q-num">Q13.</span> I have seen visible signage on campus about safety programs or resources.</div>
+        <div class="likert-wrap">
+          <table class="likert-table">
+            <thead><tr><th>Strongly Disagree</th><th>Disagree</th><th>Neutral</th><th>Agree</th><th>Strongly Agree</th></tr></thead>
+            <tbody><tr>
+              <td><input type="radio" name="q13" value="Strongly Disagree"></td>
+              <td><input type="radio" name="q13" value="Disagree"></td>
+              <td><input type="radio" name="q13" value="Neutral"></td>
+              <td><input type="radio" name="q13" value="Agree"></td>
+              <td><input type="radio" name="q13" value="Strongly Agree"></td>
+            </tr></tbody>
+          </table>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 15: Q14 -->
+    <div class="survey-step" id="step-15">
+      <div class="q-card" id="q14">
+        <div class="q-label"><span class="q-num">Q14.</span> I would feel comfortable reporting an incident of harassment or assault to the college.</div>
+        <div class="likert-wrap">
+          <table class="likert-table">
+            <thead><tr><th>Strongly Disagree</th><th>Disagree</th><th>Neutral</th><th>Agree</th><th>Strongly Agree</th></tr></thead>
+            <tbody><tr>
+              <td><input type="radio" name="q14" value="Strongly Disagree"></td>
+              <td><input type="radio" name="q14" value="Disagree"></td>
+              <td><input type="radio" name="q14" value="Neutral"></td>
+              <td><input type="radio" name="q14" value="Agree"></td>
+              <td><input type="radio" name="q14" value="Strongly Agree"></td>
+            </tr></tbody>
+          </table>
+        </div>
+        <div class="error-msg">Please select an option.</div>
+      </div>
+    </div>
+
+    <!-- STEP 16: Q15 -->
+    <div class="survey-step" id="step-16">
+      <div class="section-label"><h2>Section E — Your Thoughts</h2></div>
+      <div class="q-card" id="q15">
+        <div class="q-label"><span class="q-num">Q15.</span> What would make you feel safer on campus? <em style="color:var(--grey-light);font-size:13px">(Please describe)</em></div>
+        <textarea class="text-input" id="q15-text" placeholder="Share your thoughts..."></textarea>
+      </div>
+    </div>
+
+    <!-- STEP 17: Q16 -->
+    <div class="survey-step" id="step-17">
+      <div class="q-card" id="q16">
+        <div class="q-label"><span class="q-num">Q16.</span> What is the best way for Centennial to communicate safety resources to students? <em style="color:var(--grey-light);font-size:13px">(Select all that apply)</em></div>
+        <div class="options-list">
+          <label class="option-item"><input type="checkbox" name="q16" value="Posters and signage around campus"><label>Posters and signage around campus</label></label>
+          <label class="option-item"><input type="checkbox" name="q16" value="Information during Orientation"><label>Information during Orientation</label></label>
+          <label class="option-item"><input type="checkbox" name="q16" value="Emails from the college"><label>Emails from the college</label></label>
+          <label class="option-item"><input type="checkbox" name="q16" value="Social media posts"><label>Social media posts</label></label>
+          <label class="option-item"><input type="checkbox" name="q16" value="In-class announcements from professors"><label>In-class announcements from professors</label></label>
+          <label class="option-item"><input type="checkbox" name="q16" value="Push notifications through the app"><label>Push notifications through the app</label></label>
+          <label class="option-item">
+            <input type="checkbox" name="q16-other-check" value="Other">
+            <label>Other:</label>
+            <div class="other-wrap"><input type="text" class="other-input" id="q16-other" placeholder="Please specify"></div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 18: Q17 + Submit -->
+    <div class="survey-step" id="step-18">
+      <div class="q-card" id="q17">
+        <div class="q-label"><span class="q-num">Q17.</span> Is there anything else you would like to share about your experience of safety at Centennial?</div>
+        <textarea class="text-input" id="q17-text" placeholder="Any additional thoughts..."></textarea>
+      </div>
+      <div class="submit-area">
+        <p style="font-size:14px;color:var(--grey-mid);margin-bottom:20px;">Thank you for taking the time to complete this survey. Your responses are anonymous and will be used to improve campus safety.</p>
+        <button class="submit-btn" onclick="submitSurvey()">Submit Survey</button>
+        <div id="submit-error" style="display:none;color:var(--red);font-size:13px;margin-top:12px;">Please go back and answer all required questions before submitting.</div>
+        <div class="crisis-note" style="margin-top:24px;">
+          <strong>If this survey brought up any concerns, support is available:</strong><br>
+          Assaulted Women's Helpline: <strong>1-866-863-0511</strong> &nbsp;|&nbsp;
+          Fem'aide: <strong>1-866-860-7082</strong> &nbsp;|&nbsp;
+          LGBT Youth Line (29 &amp; under): <strong>1-800-268-9688</strong> &nbsp;|&nbsp;
+          Campus Security: <strong>416-439-4357</strong>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /form-wrap -->
+
+  <div class="nav-area" id="nav-area">
+    <button class="btn-back" id="btn-back" onclick="goBack()" style="display:none;">Back</button>
+    <button class="btn-next" id="btn-next" onclick="goNext()">Next</button>
+    <span class="nav-error" id="nav-error">Please answer the required question before continuing.</span>
+  </div>
+
+</div><!-- /survey-form -->
+
+<div id="thank-you">
+  <div class="ty-icon">✅</div>
+  <h2>Thank you for completing the survey.</h2>
+  <p>Your response has been recorded. Your honest feedback helps make Centennial a safer place for everyone.</p>
+  <div class="crisis-note" style="text-align:left;margin-top:32px;max-width:560px;display:inline-block;">
+    <strong>Support resources:</strong><br>
+    Assaulted Women's Helpline: <strong>1-866-863-0511</strong><br>
+    Fem'aide: <strong>1-866-860-7082</strong><br>
+    LGBT Youth Line (29 &amp; under): <strong>1-800-268-9688</strong><br>
+    Campus Security: <strong>416-439-4357</strong>
+  </div>
+</div>
+
+<script>
+  const TOTAL_STEPS = 18;
+  let currentStep = 1;
+
+  function getStepLabel(step) {
+    if (step === 1) return 'About You';
+    return 'Question ' + (step - 1) + ' of 17';
+  }
+
+  function updateProgressUI() {
+    const pct = Math.round(((currentStep - 1) / 18) * 100);
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('step-counter').textContent = getStepLabel(currentStep);
+    document.getElementById('btn-back').style.display = currentStep > 1 ? 'inline-block' : 'none';
+    document.getElementById('btn-next').style.display = currentStep === TOTAL_STEPS ? 'none' : 'inline-block';
+  }
+
+  function showStep(step) {
+    document.querySelectorAll('.survey-step').forEach(function(el) { el.classList.remove('active'); });
+    document.getElementById('step-' + step).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    updateProgressUI();
+  }
+
+  var stepRequired = {
+    1: null, 2: 'q1', 3: null, 4: 'q3', 5: 'q4',
+    6: 'q5', 7: 'q6', 8: null, 9: null, 10: 'q9',
+    11: 'q10', 12: 'q11', 13: 'q12', 14: 'q13', 15: 'q14',
+    16: null, 17: null, 18: null
+  };
+
+  function validateStep(step) {
+    var req = stepRequired[step];
+    if (!req) return true;
+    var card = document.getElementById(req);
+    if (!document.querySelector('input[name="' + req + '"]:checked')) {
+      if (card) card.classList.add('required-unanswered');
+      return false;
+    }
+    if (card) card.classList.remove('required-unanswered');
+    return true;
+  }
+
+  function goNext() {
+    document.getElementById('nav-error').style.display = 'none';
+    if (!validateStep(currentStep)) {
+      document.getElementById('nav-error').style.display = 'inline';
+      return;
+    }
+    if (currentStep < TOTAL_STEPS) {
+      currentStep++;
+      showStep(currentStep);
+    }
+  }
+
+  function goBack() {
+    document.getElementById('nav-error').style.display = 'none';
+    if (currentStep > 1) {
+      currentStep--;
+      showStep(currentStep);
+    }
+  }
+
+  document.querySelectorAll('.option-item input').forEach(function(input) {
+    input.addEventListener('change', function() {
+      var name = this.name;
+      if (this.type === 'radio') {
+        document.querySelectorAll('input[name="' + name + '"]').forEach(function(r) {
+          r.closest('.option-item').classList.remove('selected');
+        });
+      }
+      if (this.checked) {
+        this.closest('.option-item').classList.add('selected');
+      } else {
+        this.closest('.option-item').classList.remove('selected');
+      }
+      var card = this.closest('.q-card');
+      if (card) card.classList.remove('required-unanswered');
+      document.getElementById('nav-error').style.display = 'none';
+    });
+  });
+
+  var requiredRadios = ['q1','q3','q4','q5','q6','q9','q10','q11','q12','q13','q14'];
+
+  function collectResponses() {
+    var data = {};
+    data.name = document.getElementById('a-name').value;
+    data.program = document.getElementById('a-program').value;
+    data.school = document.getElementById('a-school').value;
+    var dur = document.querySelector('input[name="duration"]:checked');
+    data.duration = dur ? dur.value : '';
+    requiredRadios.forEach(function(name) {
+      var sel = document.querySelector('input[name="' + name + '"]:checked');
+      data[name] = sel ? sel.value : '';
+    });
+    if (data.q4 === 'No, another reason') data.q4 += ': ' + document.getElementById('q4-other').value;
+    ['q2','q7','q8','q16'].forEach(function(name) {
+      var checked = Array.from(document.querySelectorAll('input[name="' + name + '"]:checked')).map(function(i) { return i.value; });
+      data[name] = checked;
+    });
+    if (document.querySelector('input[name="q2-other-check"]:checked')) data.q2.push('Other: ' + document.getElementById('q2-other').value);
+    if (document.querySelector('input[name="q8-other-check"]:checked')) data.q8.push('Other: ' + document.getElementById('q8-other').value);
+    if (document.querySelector('input[name="q16-other-check"]:checked')) data.q16.push('Other: ' + document.getElementById('q16-other').value);
+    data.q15 = document.getElementById('q15-text').value;
+    data.q17 = document.getElementById('q17-text').value;
+    data.submitted_at = new Date().toISOString();
+    return data;
+  }
+
+  function submitSurvey() {
+    var valid = true;
+    requiredRadios.forEach(function(name) {
+      if (!document.querySelector('input[name="' + name + '"]:checked')) valid = false;
+    });
+    if (!valid) {
+      document.getElementById('submit-error').style.display = 'block';
+      return;
+    }
+
+    var btn = document.querySelector('.submit-btn');
+    btn.textContent = 'Submitting...';
+    btn.disabled = true;
+
+    var responses = collectResponses();
+
+    fetch('https://survey-proxy.bisra01.workers.dev/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(responses)
+    })
+    .then(function(res) { return res.json(); })
+    .then(function(data) {
+      document.getElementById('survey-form').style.display = 'none';
+      document.getElementById('thank-you').style.display = 'block';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    })
+    .catch(function(err) {
+      btn.textContent = 'Submit Survey';
+      btn.disabled = false;
+      document.getElementById('submit-error').textContent = 'Something went wrong submitting your response. Please try again.';
+      document.getElementById('submit-error').style.display = 'block';
+    });
+  }
+
+  showStep(1);
+</script>
+</body>
+</html>
