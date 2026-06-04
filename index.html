@@ -83,16 +83,44 @@
   .survey-step { display: none; }
   .survey-step.active { display: block; }
   @media (max-width: 600px) {
-    .site-header, .hero, .progress-wrap, .form-wrap, .nav-area { padding-left: 20px; padding-right: 20px; }
-    .hero h1 { font-size: 1.8rem; }
+    .site-header { padding: 16px 20px; }
+    .site-header img { height: 32px; }
+    .hero { padding: 28px 20px 24px; }
+    .hero h1 { font-size: 1.6rem; }
+    .hero p { font-size: 14px; }
+    .progress-wrap { padding: 16px 20px 0; }
+    .form-wrap { padding: 0 20px; }
+    .nav-area { padding: 16px 20px 0; flex-wrap: wrap; }
+    .btn-back, .btn-next { width: 100%; text-align: center; padding: 16px; font-size: 16px; }
+    .btn-back { order: 2; }
+    .btn-next { order: 1; }
+    .nav-error { order: 3; width: 100%; margin-left: 0; margin-top: 8px; }
     .q-card { padding: 18px 16px; }
+    .q-label { font-size: 15px; }
+    .option-item { padding: 14px 12px; min-height: 48px; }
+    .option-item input[type="radio"], .option-item input[type="checkbox"] { width: 20px; height: 20px; }
+    .option-item label { font-size: 15px; }
+    .submit-btn { width: 100%; padding: 16px; font-size: 16px; }
+    .section-label { flex-direction: column; gap: 4px; }
+    .likert-table thead { display: none; }
+    .likert-table, .likert-table tbody, .likert-table tr, .likert-table td { display: block; width: 100%; }
+    .likert-table tr { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .likert-table tr:last-child { border-bottom: none; }
+    .likert-table td { padding: 0; flex: 1; text-align: center; position: relative; }
+    .likert-table td::before { display: block; font-size: 10px; color: var(--grey-light); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 4px; }
+    .likert-table td:nth-child(1)::before { content: 'Str. Disagree'; }
+    .likert-table td:nth-child(2)::before { content: 'Disagree'; }
+    .likert-table td:nth-child(3)::before { content: 'Neutral'; }
+    .likert-table td:nth-child(4)::before { content: 'Agree'; }
+    .likert-table td:nth-child(5)::before { content: 'Str. Agree'; }
+    .likert-table input[type="radio"] { width: 22px; height: 22px; }
   }
 </style>
 </head>
 <body>
 
 <div class="site-header">
-  <span class="college-name">Centennial College</span>
+  <img src="https://www.centennialcollege.ca/media/acsd5ccx/pride-2025.jpg" alt="Centennial College" style="height:40px;width:auto;display:block;">
   <div class="divider"></div>
   <span class="campus-tag">Ashtonbee Campus</span>
 </div>
