@@ -51,7 +51,7 @@
   .option-item:hover { border-color: var(--purple); background: #faf5ff; }
   .option-item.selected { border-color: var(--purple); background: #f5eaff; }
   .option-item input[type="radio"], .option-item input[type="checkbox"] { accent-color: var(--purple); width: 16px; height: 16px; flex-shrink: 0; }
-  .option-item label { font-size: 14px; color: var(--grey-dark); cursor: pointer; line-height: 1.4; }
+  .option-item span { font-size: 14px; color: var(--grey-dark); cursor: pointer; line-height: 1.4; }
   .other-wrap { display: flex; align-items: center; gap: 10px; flex: 1; }
   .other-input { flex: 1; border: none; border-bottom: 1px solid var(--border); padding: 2px 6px; font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--navy); background: transparent; outline: none; }
   .other-input:focus { border-bottom-color: var(--purple); }
@@ -101,7 +101,7 @@
     .q-label { font-size: 15px; }
     .option-item { padding: 14px 12px; min-height: 48px; }
     .option-item input[type="radio"], .option-item input[type="checkbox"] { width: 20px; height: 20px; }
-    .option-item label { font-size: 15px; }
+    .option-item span { font-size: 15px; }
     .submit-btn { width: 100%; padding: 16px; font-size: 16px; }
     .section-label { flex-direction: column; gap: 4px; }
     .likert-table thead { display: none; }
@@ -241,7 +241,7 @@
           <label class="option-item"><input type="radio" name="q4" value="No, I did not feel it would be taken seriously"><span>No, I did not feel it would be taken seriously</span></label>
           <label class="option-item" id="q4-other-item">
             <input type="radio" name="q4" value="No, another reason">
-            <label>No, another reason:</label>
+            <span>No, another reason:</span>
             <div class="other-wrap"><input type="text" class="other-input" id="q4-other" placeholder="Please specify"></div>
           </label>
           <label class="option-item"><input type="radio" name="q4" value="N/A"><span>N/A</span></label>
