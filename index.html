@@ -201,8 +201,8 @@
           <label class="option-item"><input type="checkbox" name="q2" value="Washrooms or change rooms"><span>Washrooms or change rooms</span></label>
           <label class="option-item"><input type="checkbox" name="q2" value="Gym / fitness centre"><span>Gym / fitness centre</span></label>
           <label class="option-item"><input type="checkbox" name="q2" value="No, I feel safe throughout"><span>No, I feel safe throughout</span></label>
-          <label class="option-item"><input type="checkbox" name="q2-other-check" value="Other"><span>Other:</span>
-            <div class="other-wrap"><input type="text" class="other-input" id="q2-other" placeholder="Please specify"></div>
+          <label class="option-item"><input type="checkbox" name="q2-other-check" id="q2-other-check" value="Other"><span>Other:</span>
+            <div class="other-wrap"><input type="text" class="other-input" id="q2-other" placeholder="Please specify" oninput="if(this.value.trim()){document.getElementById('q2-other-check').checked=true;}" onclick="event.stopPropagation()"></div>
           </label>
         </div>
       </div>
@@ -224,7 +224,7 @@
         </div>
         <div style="margin-top:16px;">
           <div style="font-size:13px;color:var(--grey-mid);margin-bottom:6px;">If you'd like to share more details <em>(optional)</em>:</div>
-          <textarea class="text-input" id="q3-details" placeholder="You may describe what happened in as much or as little detail as you're comfortable with..."></textarea>
+          <textarea class="text-input" id="q3-details" placeholder="You may describe what happened in as much or as little detail as you're comfortable with..." oninput="if(this.value.trim() && !document.querySelector('input[name=q3]:checked')){document.querySelector('input[name=q3][value=\'Yes, experienced it personally\']').click();}"></textarea>
         </div>
         <div class="error-msg">Please select an option.</div>
       </div>
@@ -242,7 +242,7 @@
           <label class="option-item" id="q4-other-item">
             <input type="radio" name="q4" value="No, another reason" id="q4-radio-other">
             <span onclick="document.getElementById('q4-radio-other').click()">No, another reason:</span>
-            <div class="other-wrap"><input type="text" class="other-input" id="q4-other" placeholder="Please specify" onclick="event.stopPropagation()"></div>
+            <div class="other-wrap"><input type="text" class="other-input" id="q4-other" placeholder="Please specify" oninput="if(this.value.trim()){document.getElementById('q4-radio-other').checked=true;}" onclick="event.stopPropagation()"></div>
           </label>
           <label class="option-item"><input type="radio" name="q4" value="N/A"><span>N/A</span></label>
         </div>
@@ -306,8 +306,8 @@
           <label class="option-item"><input type="checkbox" name="q8" value="Campus signage or posters"><span>Campus signage or posters</span></label>
           <label class="option-item"><input type="checkbox" name="q8" value="I have never heard of it"><span>I have never heard of it</span></label>
           <label class="option-item">
-            <input type="checkbox" name="q8-other-check" value="Other"><span>Other:</span>
-            <div class="other-wrap"><input type="text" class="other-input" id="q8-other" placeholder="Please specify"></div>
+            <input type="checkbox" name="q8-other-check" id="q8-other-check" value="Other"><span>Other:</span>
+            <div class="other-wrap"><input type="text" class="other-input" id="q8-other" placeholder="Please specify" oninput="if(this.value.trim()){document.getElementById('q8-other-check').checked=true;}" onclick="event.stopPropagation()"></div>
           </label>
         </div>
       </div>
@@ -451,8 +451,8 @@
           <label class="option-item"><input type="checkbox" name="q16" value="In-class announcements from professors"><span>In-class announcements from professors</span></label>
           <label class="option-item"><input type="checkbox" name="q16" value="Push notifications through the app"><span>Push notifications through the app</span></label>
           <label class="option-item">
-            <input type="checkbox" name="q16-other-check" value="Other"><span>Other:</span>
-            <div class="other-wrap"><input type="text" class="other-input" id="q16-other" placeholder="Please specify"></div>
+            <input type="checkbox" name="q16-other-check" id="q16-other-check" value="Other"><span>Other:</span>
+            <div class="other-wrap"><input type="text" class="other-input" id="q16-other" placeholder="Please specify" oninput="if(this.value.trim()){document.getElementById('q16-other-check').checked=true;}" onclick="event.stopPropagation()"></div>
           </label>
         </div>
       </div>
