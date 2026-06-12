@@ -240,9 +240,9 @@
           <label class="option-item"><input type="radio" name="q4" value="No, I did not know where to report"><span>No, I did not know where to report</span></label>
           <label class="option-item"><input type="radio" name="q4" value="No, I did not feel it would be taken seriously"><span>No, I did not feel it would be taken seriously</span></label>
           <label class="option-item" id="q4-other-item">
-            <input type="radio" name="q4" value="No, another reason">
-            <span>No, another reason:</span>
-            <div class="other-wrap"><input type="text" class="other-input" id="q4-other" placeholder="Please specify"></div>
+            <input type="radio" name="q4" value="No, another reason" id="q4-radio-other">
+            <span onclick="document.getElementById('q4-radio-other').click()">No, another reason:</span>
+            <div class="other-wrap"><input type="text" class="other-input" id="q4-other" placeholder="Please specify" onclick="event.stopPropagation()"></div>
           </label>
           <label class="option-item"><input type="radio" name="q4" value="N/A"><span>N/A</span></label>
         </div>
