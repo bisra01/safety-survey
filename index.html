@@ -605,9 +605,13 @@
       data[name] = checked;
     });
     if (document.querySelector('input[name="q2-other-check"]:checked')) data.q2.push('Other: ' + document.getElementById('q2-other').value);
+    data.q2_other_details = document.getElementById('q2-other').value;
     if (document.querySelector('input[name="q8-other-check"]:checked')) data.q8.push('Other: ' + document.getElementById('q8-other').value);
+    data.q8_other_details = document.getElementById('q8-other').value;
     if (document.querySelector('input[name="q16-other-check"]:checked')) data.q16.push('Other: ' + document.getElementById('q16-other').value);
     data.q3_details = document.getElementById('q3-details').value;
+    var q4Other = document.getElementById('q4-other');
+    data.q4_other_details = q4Other ? q4Other.value : '';
     data.q15 = document.getElementById('q15-text').value;
     data.q17 = document.getElementById('q17-text').value;
     data.submitted_at = new Date().toISOString();
