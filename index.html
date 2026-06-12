@@ -82,6 +82,8 @@
   .required-unanswered .error-msg { display: block; }
   .survey-step { display: none; }
   .survey-step.active { display: block; }
+  .q-note { font-size: 13px; color: var(--grey-mid); background: #f0f4ff; border-left: 3px solid var(--blue); padding: 10px 14px; border-radius: 0 4px 4px 0; margin-bottom: 16px; line-height: 1.6; }
+  .q-note strong { color: var(--blue); }
   @media (max-width: 600px) {
     .site-header { padding: 16px 20px; }
     .site-header img { height: 32px; }
@@ -129,7 +131,7 @@
   <div class="hero">
     <div class="subtitle">Student Survey · 2026</div>
     <h1>Student Safety <span>Survey</span></h1>
-    <p>This survey is being conducted to understand student awareness of women's safety supports and resources available at Centennial College. Your honest responses will help inform Centennial College of the current state of affairs and perhaps be able to improve campus safety for everyone.<mark> Participation is entirely voluntary.</mark></p>
+    <p>This survey is being conducted to understand student awareness of safety supports and resources available at Centennial College. Your honest responses will help inform Centennial College of the current state of affairs and perhaps help improve campus safety for everyone.<mark> Participation is entirely voluntary.</mark></p>
   </div>
 
   <div class="progress-wrap">
@@ -197,6 +199,7 @@
           <label class="option-item"><input type="checkbox" name="q2" value="Campus buildings after hours"><label>Campus buildings after hours</label></label>
           <label class="option-item"><input type="checkbox" name="q2" value="Transit stops near campus"><label>Transit stops near campus</label></label>
           <label class="option-item"><input type="checkbox" name="q2" value="Washrooms or change rooms"><label>Washrooms or change rooms</label></label>
+          <label class="option-item"><input type="checkbox" name="q2" value="Gym / fitness centre"><label>Gym / fitness centre</label></label>
           <label class="option-item"><input type="checkbox" name="q2" value="No, I feel safe throughout"><label>No, I feel safe throughout</label></label>
           <label class="option-item"><input type="checkbox" name="q2-other-check" value="Other"><label>Other:</label>
             <div class="other-wrap"><input type="text" class="other-input" id="q2-other" placeholder="Please specify"></div>
@@ -209,12 +212,19 @@
     <div class="survey-step" id="step-4">
       <div class="q-card" id="q3">
         <div class="q-label"><span class="q-num">Q3.</span> Have you ever personally experienced or witnessed harassment or threatening behaviour on campus?</div>
+        <div class="q-note">
+          <strong>Harassment can take many forms</strong> — it doesn't have to be physical or severe to count. This includes verbal abuse, unwanted sexual comments or contact, racial or ethnic slurs, religious discrimination, homophobic or transphobic remarks, intimidation, and cyberbullying, among others. <strong>No experience is "too small" to mention.</strong> If it made you feel unsafe, uncomfortable, or disrespected, it matters.
+        </div>
         <div class="options-list">
           <label class="option-item"><input type="radio" name="q3" value="Yes, experienced it personally"><label>Yes, experienced it personally</label></label>
           <label class="option-item"><input type="radio" name="q3" value="Yes, witnessed it happening to someone else"><label>Yes, witnessed it happening to someone else</label></label>
           <label class="option-item"><input type="radio" name="q3" value="Both"><label>Both</label></label>
           <label class="option-item"><input type="radio" name="q3" value="No"><label>No</label></label>
           <label class="option-item"><input type="radio" name="q3" value="Prefer not to say"><label>Prefer not to say</label></label>
+        </div>
+        <div style="margin-top:16px;">
+          <div style="font-size:13px;color:var(--grey-mid);margin-bottom:6px;">If you'd like to share more details <em>(optional)</em>:</div>
+          <textarea class="text-input" id="q3-details" placeholder="You may describe what happened in as much or as little detail as you're comfortable with..."></textarea>
         </div>
         <div class="error-msg">Please select an option.</div>
       </div>
@@ -344,7 +354,7 @@
     <!-- STEP 12: Q11 -->
     <div class="survey-step" id="step-12">
       <div class="q-card" id="q11">
-        <div class="q-label"><span class="q-num">Q11.</span> Centennial College does enough to make women feel safe on campus.</div>
+        <div class="q-label"><span class="q-num">Q11.</span> Centennial College does enough to make students feel safe on campus.</div>
         <div class="likert-wrap">
           <table class="likert-table">
             <thead><tr><th>Strongly Disagree</th><th>Disagree</th><th>Neutral</th><th>Agree</th><th>Strongly Agree</th></tr></thead>
@@ -597,6 +607,7 @@
     if (document.querySelector('input[name="q2-other-check"]:checked')) data.q2.push('Other: ' + document.getElementById('q2-other').value);
     if (document.querySelector('input[name="q8-other-check"]:checked')) data.q8.push('Other: ' + document.getElementById('q8-other').value);
     if (document.querySelector('input[name="q16-other-check"]:checked')) data.q16.push('Other: ' + document.getElementById('q16-other').value);
+    data.q3_details = document.getElementById('q3-details').value;
     data.q15 = document.getElementById('q15-text').value;
     data.q17 = document.getElementById('q17-text').value;
     data.submitted_at = new Date().toISOString();
