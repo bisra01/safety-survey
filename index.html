@@ -202,7 +202,7 @@
           <label class="option-item"><input type="checkbox" name="q2" value="Gym / fitness centre"><span>Gym / fitness centre</span></label>
           <label class="option-item"><input type="checkbox" name="q2" value="No, I feel safe throughout"><span>No, I feel safe throughout</span></label>
           <label class="option-item"><input type="checkbox" name="q2-other-check" id="q2-other-check" value="Other"><span>Other:</span>
-            <div class="other-wrap"><input type="text" class="other-input" id="q2-other" placeholder="Please specify" oninput="if(this.value.trim()){document.getElementById('q2-other-check').checked=true;}" onclick="event.stopPropagation()"></div>
+            <div class="other-wrap"><input type="text" class="other-input" id="q2-other" placeholder="Please specify" oninput="if(this.value.trim()){var cb=document.getElementById('q2-other-check');if(!cb.checked){cb.checked=true;cb.dispatchEvent(new Event('change',{bubbles:true}));}}" onclick="event.stopPropagation()"></div>
           </label>
         </div>
       </div>
@@ -307,7 +307,7 @@
           <label class="option-item"><input type="checkbox" name="q8" value="I have never heard of it"><span>I have never heard of it</span></label>
           <label class="option-item">
             <input type="checkbox" name="q8-other-check" id="q8-other-check" value="Other"><span>Other:</span>
-            <div class="other-wrap"><input type="text" class="other-input" id="q8-other" placeholder="Please specify" oninput="if(this.value.trim()){document.getElementById('q8-other-check').checked=true;}" onclick="event.stopPropagation()"></div>
+            <div class="other-wrap"><input type="text" class="other-input" id="q8-other" placeholder="Please specify" oninput="if(this.value.trim()){var cb=document.getElementById('q8-other-check');if(!cb.checked){cb.checked=true;cb.dispatchEvent(new Event('change',{bubbles:true}));}}" onclick="event.stopPropagation()"></div>
           </label>
         </div>
       </div>
@@ -452,7 +452,7 @@
           <label class="option-item"><input type="checkbox" name="q16" value="Push notifications through the app"><span>Push notifications through the app</span></label>
           <label class="option-item">
             <input type="checkbox" name="q16-other-check" id="q16-other-check" value="Other"><span>Other:</span>
-            <div class="other-wrap"><input type="text" class="other-input" id="q16-other" placeholder="Please specify" oninput="if(this.value.trim()){document.getElementById('q16-other-check').checked=true;}" onclick="event.stopPropagation()"></div>
+            <div class="other-wrap"><input type="text" class="other-input" id="q16-other" placeholder="Please specify" oninput="if(this.value.trim()){var cb=document.getElementById('q16-other-check');if(!cb.checked){cb.checked=true;cb.dispatchEvent(new Event('change',{bubbles:true}));}}" onclick="event.stopPropagation()"></div>
           </label>
         </div>
       </div>
